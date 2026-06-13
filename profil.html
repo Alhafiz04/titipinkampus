@@ -2,25 +2,61 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Profil</title>
 <link rel="stylesheet" href="Css/style.css">
 </head>
 <body>
 
-<h1>Profil Pengguna</h1>
+<header class="header">
 
-<div id="profil">
+    <h1>Profil Saya</h1>
 
-    <p>Nama: Al Hafiz</p>
-    <p>Email: user@gmail.com</p>
-    <p>No HP: 08123456789</p>
-    <p>Rating: 5</p>
+</header>
+
+<div class="card">
+
+    <h3>Informasi Akun</h3>
+
+    <p><strong>Nama :</strong>
+        <span id="profilNama">-</span>
+    </p>
+
+    <p><strong>Email :</strong>
+        <span id="profilEmail">-</span>
+    </p>
+
+    <p><strong>No HP :</strong>
+        <span id="profilNoHp">-</span>
+    </p>
+
+    <p><strong>Role :</strong>
+        <span id="profilRole">-</span>
+    </p>
+
+    <p><strong>Rating :</strong>
+        ⭐ <span id="profilRating">-</span>
+    </p>
+
+</div>
+
+<div class="card">
+
+    <button>
+        Edit Profil
+    </button>
 
 </div>
 
 <a href="dashboard.html">
-    <button>Kembali</button>
+
+<button>
+Kembali
+</button>
+
 </a>
+
+<script type="module" src="Js/profil.js"></script>
 
 </body>
 </html>

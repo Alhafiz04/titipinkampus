@@ -1,112 +1,194 @@
-import { app } from "./firebase.js";
+import { auth, db } from "./firebase.js";
 
 import {
-    getAuth,
-    createUserWithEmailAndPassword,
-    signInWithEmailAndPassword,
-    signOut
+createUserWithEmailAndPassword,
+signInWithEmailAndPassword,
+signOut
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
-const auth = getAuth(app);
+import {
+doc,
+setDoc,
+getDoc
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
-// Ambil elemen HTML
 const email = document.getElementById("email");
 const password = document.getElementById("password");
 
 const loginBtn = document.getElementById("loginBtn");
 const registerBtn = document.getElementById("registerBtn");
 const logoutBtn = document.getElementById("logoutBtn");
+const registerFields =
+    document.getElementById("registerFields");
 
+let registerMode = false;
 /* =========================
    REGISTER
 ========================= */
 
 if (registerBtn) {
 
-    registerBtn.addEventListener("click", () => {
+    registerBtn.addEventListener(
+        "click",
+        async () => {
 
-        createUserWithEmailAndPassword(
-            auth,
-            email.value,
-            password.value
-        )
+            if (!registerMode) {
 
-        .then((userCredential) => {
+                registerFields.style.display =
+                    "block";
 
-            alert("Akun berhasil dibuat!");
+                registerBtn.textContent =
+                    "Simpan Akun";
 
-            console.log(userCredential.user);
+                registerMode = true;
 
-        })
+                return;
+            }
 
-        .catch((error) => {
+            try {
 
-            alert("Error: " + error.message);
+                const nama =
+                    document.getElementById(
+                        "nama"
+                    ).value;
 
-        });
+                const noHp =
+                    document.getElementById(
+                        "noHp"
+                    ).value;
 
-    });
+                const userCredential =
+                    await createUserWithEmailAndPassword(
+                        auth,
+                        email.value,
+                        password.value
+                    );
+
+                const user =
+                    userCredential.user;
+
+                await setDoc(
+                    doc(
+                        db,
+                        "users",
+                        user.uid
+                    ),
+                    {
+                        nama,
+                        noHp,
+                        email: email.value,
+                        rating: 5,
+                        role: "user"
+                    }
+                );
+
+                alert(
+                    "Akun berhasil dibuat!"
+                );
+
+                registerFields.style.display =
+                    "none";
+
+                registerBtn.textContent =
+                    "Daftar";
+
+                registerMode = false;
+
+            }
+
+            catch (error) {
+
+                alert(error.message);
+
+            }
+
+        }
+    );
 
 }
 
 /* =========================
-   LOGIN
+LOGIN
 ========================= */
 
 if (loginBtn) {
 
-    loginBtn.addEventListener("click", () => {
+loginBtn.addEventListener("click", async () => {
 
-        signInWithEmailAndPassword(
-            auth,
-            email.value,
-            password.value
-        )
+    try {
 
-        .then((userCredential) => {
+        const userCredential =
+            await signInWithEmailAndPassword(
+                auth,
+                email.value,
+                password.value
+            );
 
-            alert("Login berhasil!");
+        const uid =
+            userCredential.user.uid;
 
-            console.log(userCredential.user);
+        const userDoc =
+            await getDoc(
+                doc(db, "users", uid)
+            );
 
-            window.location.href = "dashboard.html";
+        if (userDoc.exists()) {
 
-        })
+            const data =
+                userDoc.data();
 
-        .catch((error) => {
+            if (
+                data.role === "driver"
+            ) {
 
-            alert("Error: " + error.message);
+                window.location.href =
+                    "driver.html";
 
-        });
+            } else {
 
-    });
+                window.location.href =
+                    "dashboard.html";
+
+            }
+
+        } else {
+
+            window.location.href =
+                "dashboard.html";
+
+        }
+
+    } catch (error) {
+
+        alert(error.message);
+
+    }
+
+});
 
 }
 
 /* =========================
-   LOGOUT
+LOGOUT
 ========================= */
 
 if (logoutBtn) {
 
-    logoutBtn.addEventListener("click", () => {
+logoutBtn.addEventListener("click", async () => {
 
-        signOut(auth)
+    try {
 
-        .then(() => {
+        await signOut(auth);
 
-            alert("Logout berhasil!");
+        window.location.href =
+            "index.html";
 
-            window.location.href = "index.html";
+    } catch (error) {
 
-        })
+        alert(error.message);
 
-        .catch((error) => {
+    }
 
-            alert("Error: " + error.message);
-
-        });
-
-    });
+});
 
 }

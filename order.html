@@ -2,31 +2,67 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<title>Buat Titipan</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Buat Pesanan</title>
 <link rel="stylesheet" href="Css/style.css">
 </head>
 <body>
 
-<h1>Buat Titipan</h1>
+<header class="header">
 
-<input type="text" id="namaBarang" placeholder="Nama Barang">
+    <h1>Buat Pesanan</h1>
 
-<input type="text" id="lokasiBeli" placeholder="Lokasi Pembelian">
+</header>
 
-<input type="number" id="hargaBarang" placeholder="Harga Barang">
+<div class="card">
 
-<input type="number" id="ongkosTitip" placeholder="Ongkos Titip">
+    <label>Pesanan</label>
 
-<textarea id="catatan" placeholder="Catatan"></textarea>
+    <textarea
+    id="pesanan"
+    placeholder="Contoh:
 
-<button id="simpanOrder">
-    Simpan Titipan
-</button>
+Mie Setan Lv 3 x2
+Udang Rambutan x1
+Es Teh x2"></textarea>
 
-<br><br>
+</div>
+
+<div class="card">
+
+    <label>Catatan</label>
+
+    <textarea
+    id="catatan"
+    placeholder="Tambahan catatan"></textarea>
+
+</div>
+
+<div class="card">
+
+    <label>Alamat Pengantaran</label>
+
+    <input
+    type="text"
+    id="alamat"
+    placeholder="Masukkan alamat lengkap">
+
+</div>
+
+<div class="card">
+
+    <button id="simpanOrder">
+        Kirim Pesanan
+    </button>
+
+</div>
 
 <a href="dashboard.html">
-    <button>Kembali</button>
+
+<button>
+Kembali
+</button>
+
 </a>
 
 <script type="module" src="Js/order.js"></script>

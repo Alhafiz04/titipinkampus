@@ -1,109 +1,128 @@
-import { app } from "./firebase.js";
+import { db, auth } from "./firebase.js";
 
 import {
-    getFirestore,
-    collection,
-    addDoc,
-    getDocs
+collection,
+addDoc,
+getDocs
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
-const db = getFirestore(app);
-
 /* =========================
-   SIMPAN TITIPAN
+SIMPAN PESANAN
 ========================= */
 
 const btn = document.getElementById("simpanOrder");
 
 if (btn) {
 
-    btn.addEventListener("click", async () => {
 
-        const namaBarang =
-            document.getElementById("namaBarang").value;
+btn.addEventListener("click", async () => {
 
-        const lokasiBeli =
-            document.getElementById("lokasiBeli").value;
+    const pesanan =
+        document.getElementById("pesanan").value;
 
-        const hargaBarang =
-            parseInt(document.getElementById("hargaBarang").value);
+    const catatan =
+        document.getElementById("catatan").value;
 
-        const ongkosTitip =
-            parseInt(document.getElementById("ongkosTitip").value);
+    const alamat =
+        document.getElementById("alamat").value;
 
-        const catatan =
-            document.getElementById("catatan").value;
+    try {
+        const params =
+    new URLSearchParams(
+        window.location.search
+    );
 
-        try {
+    const driverId =
+    params.get("driverId");
+        await addDoc(
+            collection(db, "orders"),
+            {
+                userId:
+                    auth.currentUser.uid,
 
-            await addDoc(
-                collection(db, "orders"),
-                {
-                    namaBarang,
-                    lokasiBeli,
-                    hargaBarang,
-                    ongkosTitip,
-                    totalHarga:
-                        hargaBarang + ongkosTitip,
-                    catatan,
-                    status: "Menunggu",
-                    tanggal:
-                        new Date().toLocaleDateString()
-                }
-            );
+                driverId:
+                    driverId,
+                pesanan,
+                catatan,
+                alamat,
+                status:
+                    "Menunggu",
+                ratingDiberikan: false,
+                tanggal:
+                    new Date()
+                    .toLocaleDateString()
+            }
+        );
 
-            alert("Titipan berhasil disimpan!");
+        alert("Pesanan berhasil dikirim!");
 
-        }
+        document.getElementById("pesanan").value = "";
+        document.getElementById("catatan").value = "";
+        document.getElementById("alamat").value = "";
 
-        catch (error) {
+    }
 
-            alert(error.message);
+    catch (error) {
 
-        }
+        alert(error.message);
 
-    });
+    }
+
+});
+
 
 }
 
 /* =========================
-   TAMPILKAN TITIPAN
+TAMPILKAN PESANAN
 ========================= */
 
 const ordersDiv =
-    document.getElementById("orders");
+document.getElementById("orders");
 
 if (ordersDiv) {
 
-    async function loadOrders() {
 
-        const snapshot =
-            await getDocs(
-                collection(db, "orders")
-            );
+async function loadOrders() {
 
-        let html = "";
+    const snapshot =
+        await getDocs(
+            collection(db, "orders")
+        );
 
-        snapshot.forEach((doc) => {
+    let html = "";
 
-            const data = doc.data();
+    snapshot.forEach((doc) => {
 
-            html += `
-                <div class="card">
-                    <h3>${data.namaBarang}</h3>
-                    <p>Lokasi: ${data.lokasiBeli}</p>
-                    <p>Harga: Rp ${data.hargaBarang}</p>
-                    <p>Ongkos: Rp ${data.ongkosTitip}</p>
-                    <p>Status: ${data.status}</p>
-                </div>
-            `;
+        const data = doc.data();
 
-        });
+        html += `
+            <div class="card">
 
-        ordersDiv.innerHTML = html;
+                <h3>Pesanan</h3>
 
-    }
+                <p>${data.pesanan}</p>
 
-    loadOrders();
+                <p>
+                Status :
+                ${data.status}
+                </p>
+
+                <p>
+                Alamat :
+                ${data.alamat}
+                </p>
+
+            </div>
+        `;
+
+    });
+
+    ordersDiv.innerHTML = html;
+
+}
+
+loadOrders();
+
 
 }

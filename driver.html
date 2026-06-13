@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard Driver</title>
+<link rel="stylesheet" href="Css/style.css">
+</head>
+<body>
+
+<header class="header">
+
+    <h1>Dashboard Driver</h1>
+
+</header>
+
+<div class="card">
+
+    <h3>Status Driver</h3>
+
+    <button id="onlineBtn">
+        🟢 Online
+    </button>
+
+    <button id="offlineBtn">
+        🔴 Offline
+    </button>
+
+</div>
+
+
+<div class="card">
+
+    <h3>Lokasi Saat Ini</h3>
+
+    <input
+    type="text"
+    id="lokasi"
+    placeholder="Contoh : Mie Gacoan">
+
+    <button id="simpanLokasi">
+        Simpan Lokasi
+    </button>
+
+</div>
+
+<div class="card">
+
+    <h3>Upload Foto Menu</h3>
+
+    <input type="file" id="menuFile">
+
+    <button id="uploadMenuBtn">
+    Upload Menu
+    </button>
+
+</div>
+
+<div class="card">
+
+    <h3>Statistik</h3>
+
+    <p>Total Order : 15</p>
+
+    <p>Rating : ⭐ 4.9</p>
+
+</div>
+
+<div class="card">
+
+    <h3>Pesanan Masuk</h3>
+
+    <div id="pesananMasuk">
+
+        <p>Memuat pesanan...</p>
+        <button>
+        Selesai
+        </button>
+    </div>
+
+</div>
+
+<a href="dashboard.html">
+
+<button>
+Kembali
+</button>
+
+</a>
+
+<script type="module" src="Js/driver.js"></script>
+
+</body>
+</html>

@@ -2,33 +2,95 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<title>Dashboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard User</title>
 <link rel="stylesheet" href="Css/style.css">
 </head>
+<script>
+
+function toggleSidebar(){
+
+    document
+    .getElementById("sidebar")
+    .classList
+    .toggle("show");
+
+}
+
+</script>
 <body>
 
-<h1>Dashboard TitipIn Kampus</h1>
+    <div class="mobile-header">
 
-<button id="logoutBtn">Logout</button>
+    <button class="menu-toggle"
+            onclick="toggleSidebar()">
+        ☰
+    </button>
 
-<script type="module" src="Js/auth.js"></script>
+    <h2>TitipIn</h2>
 
-<nav>
-    <a href="order.html">Buat Titipan</a> |
-    <a href="riwayat.html">Riwayat</a> |
-    <a href="profil.html">Profil</a>
-</nav>
+</div>
+<!-- Sidebar -->
 
-<hr>
+<div class="sidebar" id="sidebar">
 
-<h2>Daftar Titipan</h2>
+    <div class="logo">
 
-<div id="orders">
-    Loading...
+        <h2>TitipIn</h2>
+
+    </div>
+
+    <a href="dashboard.html">🏠 Beranda</a>
+
+    <a href="order.html">📦 Pesan</a>
+
+    <a href="riwayat.html">📜 Riwayat</a>
+
+    <a href="profil.html">👤 Profil</a>
+
+    <a href="driver.html">🚗 Mode Driver</a>
+
+    <button id="logoutBtn">
+        Logout
+    </button>
+
 </div>
 
-<script type="module" src="Js/order.js"></script>
+<!-- Content -->
+
+<div class="main-content">
+
+    <section class="welcome">
+
+        <h1 id="namaUser">Halo 👋</h1>
+
+        <p>
+            Cari driver yang sedang berada di restoran favoritmu.
+        </p>
+
+    </section>
+
+    <section class="search-section">
+
+        <input
+        type="text"
+        placeholder="Cari driver atau restoran">
+
+    </section>
+
+    <h2 class="section-title">
+        Driver Online
+    </h2>
+
+    <div
+        class="driver-grid"
+        id="driverGrid">
+    </div>
+
+</div>
+
+<script type="module" src="Js/auth.js"></script>
+<script type="module" src="Js/dashboard.js"></script>
 
 </body>
-
 </html>

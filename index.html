@@ -3,21 +3,53 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TitipIn Kampus</title>
+<title>TitipIn</title>
 <link rel="stylesheet" href="Css/style.css">
 </head>
 <body>
 
-<div class="container">
-    <h1>TitipIn Kampus</h1>
+<div class="login-container">
 
-    <input type="email" id="email" placeholder="Email">
-    <input type="password" id="password" placeholder="Password">
+    <div class="login-card">
 
-    <button id="loginBtn">Login</button>
-    <button id="registerBtn">Daftar</button>
+    <h1>TitipIn</h1>
 
-    <p id="pesan"></p>
+    <div id="registerFields" style="display:none;">
+
+        <input
+        type="text"
+        id="nama"
+        placeholder="Nama Lengkap">
+
+        <input
+        type="text"
+        id="noHp"
+        placeholder="Nomor HP">
+
+    </div>
+
+    <input
+    type="email"
+    id="email"
+    placeholder="Email">
+
+    <input
+    type="password"
+    id="password"
+    placeholder="Password">
+
+        <button id="loginBtn">
+            Login
+        </button>
+
+        <button id="registerBtn">
+            Daftar
+        </button>
+
+        <p id="pesan"></p>
+
+    </div>
+
 </div>
 
 <script type="module" src="Js/auth.js"></script>
